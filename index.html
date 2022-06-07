@@ -147,11 +147,11 @@
 		<p>Please do not move or click your mouse or type a key for 5 seconds to see Amelia popping up</p>
 	</div>
     <div class="chat-overlay">
-        <div class="chat-overlay-wrapper">
-            <div class="chat-overlay-header-mobile">
+        <div class="chat-overlay-wrapper chat-overlay-closed">
+            <div class="chat-overlay-header-mobile close">
                 <img class="close" src="./amelia-close.png" alt="toggle chat overlay" />
             </div>
-            <iframe id="receiver" src="https://adha.dev.amelia.com/Amelia/ui/adha/chat?domainCode=adha&sourcePage=home&sourceAction=click" frameborder="0" width="100%" height="100%" allow="geolocation; microphone; camera">
+            <iframe id="receiver" src="https://adha.dev.amelia.com/Amelia/ui/adha/chat?domainCode=adha&sourcePage=home&sourceAction=click" frameborder="0" width="100%" height="100%" allow="geolocation; microphone; camera" class="close">
         <p>Your browser does not support iframes.</p>
       </iframe>
             <div class="chat-overlay-header">
@@ -166,19 +166,19 @@
         
         var timeout;
 
-		function resetTimer() {
-			clearTimeout(timeout);
-			console.log("Clearing timer because of activity");
-			timeout = setTimeout(function () {
-				//alert("Done with 10 Seconds!");
-				//Trigger your popup here
-                document.getElementById('receiver').src = "https://adha.dev.amelia.com/Amelia/ui/adha/chat?domainCode=adha&sourcePage=home&sourceAction=timer";
-                toggleChatOverlayForTimer();
-			}, 5000);
-		}
+	function resetTimer() {
+		clearTimeout(timeout);
+		console.log("Clearing timer because of activity");
+		timeout = setTimeout(function () {
+			//alert("Done with 10 Seconds!");
+			//Trigger your popup here
+		document.getElementById('receiver').src = "https://adha.dev.amelia.com/Amelia/ui/adha/chat?domainCode=adha&sourcePage=home&sourceAction=timer";
+		toggleChatOverlayForTimer();
+		}, 5000);
+	}
 
-		document.onmousemove = resetTimer;
-		document.onkeypress = resetTimer;
+	document.onmousemove = resetTimer;
+	document.onkeypress = resetTimer;
         
         function openChatOverlay(receiverElem, imgElemOpen, imgElemClose) {
             document.getElementById('receiver').classList.add("open");
@@ -244,10 +244,11 @@
             var chatOverlayHeaderImgElemOpen = document.getElementsByClassName('chat-overlay-header-img open')[0];
             var chatOverlayHeaderImgElemClose = document.getElementsByClassName('chat-overlay-header-img close')[0];
             var receiverElem = document.getElementById('receiver');
+            receiverElem.src = "https://adha.dev.amelia.com/Amelia/ui/adha/chat?domainCode=adha&sourcePage=home&sourceAction=click";
             if (chatOverlayOpen && localStorage.getItem('chatOverlayOpen') !== "true") {
-                //closeChatOverlay(receiverElem, chatOverlayHeaderImgElemOpen, chatOverlayHeaderImgElemClose);
+                closeChatOverlay(receiverElem, chatOverlayHeaderImgElemOpen, chatOverlayHeaderImgElemClose);
             } else {
-                //openChatOverlay(receiverElem, chatOverlayHeaderImgElemOpen, chatOverlayHeaderImgElemClose);
+                openChatOverlay(receiverElem, chatOverlayHeaderImgElemOpen, chatOverlayHeaderImgElemClose);
             }
         } else {
             // Sorry! No Web Storage support..
