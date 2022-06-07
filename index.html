@@ -8,7 +8,7 @@
             background-image: url(bayer-home.png);
             background-size: cover;
         }*/
-        
+
         .chat-overlay {
             position: fixed;
             width: 376px;
@@ -17,24 +17,24 @@
             right: 24px;
             z-index: 90;
         }
-        
+
         .chat-overlay-open {
             height: 512px;
         }
-        
+
         .chat-overlay-closed {
             height: 78px;
         }
-        
+
         .chat-overlay-wrapper {
             width: 376px;
             height: 448px;
         }
-        
+
         .chat-overlay-header-mobile {
             display: none;
         }
-        
+
         .chat-overlay-header {
             position: relative;
             height: 56px;
@@ -43,7 +43,7 @@
             border-radius: 50%;
             box-shadow: 1rem 1rem 5rem rgba(0, 0, 0, 0.5);
         }
-        
+
         #receiver {
             transition: opacity 1s ease-in-out;
             opacity: 1;
@@ -51,19 +51,19 @@
             box-shadow: 1rem 1rem 5rem rgba(0, 0, 0, 0.5);
             /* border-radius: 0.5rem; */
         }
-        
+
         #receiver.close {
             height: 0;
             opacity: 0;
             overflow: hidden;
         }
-        
+
         #receiver.open {
             height: 100%;
             opacity: 1;
             overflow: hidden;
         }
-        
+
         .chat-overlay-header-img {
             position: absolute;
             max-width: 56px;
@@ -76,58 +76,67 @@
             bottom: 0px;
             margin: auto;
         }
-        
+
         .chat-overlay-header-img.open {
             opacity: 0;
         }
-        
+
         .absolute-cart-box {
             display: none;
         }
-        
+
         @media only screen and (max-width: 768px) {
             .chat-overlay {
                 width: 100%;
                 position: fixed;
                 height: 100%;
             }
+
             .chat-overlay-header-mobile {
                 display: flex;
                 width: inherit;
                 height: 9%;
                 background: #4d5aff;
             }
+
             .chat-overlay-header-mobile img {
                 height: 30%;
                 padding: 1rem;
                 margin-left: auto;
             }
+
             .chat-overlay-header-mobile.close {
                 display: none;
             }
+
             #receiver {
                 border-radius: 0;
             }
+
             #receiver.close {
                 height: 0;
                 opacity: 0;
                 overflow: hidden;
             }
+
             #receiver.open {
                 height: 91%;
                 opacity: 1;
                 overflow: hidden;
             }
+
             .chat-overlay-open {
                 height: 100%;
                 bottom: 0px;
                 right: 0px;
             }
+
             .chat-overlay-closed {
                 height: 70px;
                 bottom: 24px;
                 right: 24px;
             }
+
             .chat-overlay-wrapper {
                 width: 100%;
                 height: 100%;
@@ -142,18 +151,20 @@
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
 
 <body>
-	<div>
-		<h1>Example Timer</h1>
-		<p>Please do not move or click your mouse or type a key for 5 seconds to see Amelia popping up</p>
-	</div>
-    <div class="chat-overlay">
-        <div class="chat-overlay-wrapper chat-overlay-closed">
-            <div class="chat-overlay-header-mobile close">
-                <img class="close" src="./amelia-close.png" alt="toggle chat overlay" />
+    <div>
+        <h1>Example Timer</h1>
+        <p>Please do not move or click your mouse or type a key for 5 seconds to see Amelia popping up</p>
+    </div>
+    <div class="chat-overlay-closed chat-overlay">
+        <div class="chat-overlay-wrapper">
+            <div class="close chat-overlay-header-mobile">
+                <img class="open" src="./amelia-open.png" alt="toggle chat overlay" />
             </div>
-            <iframe id="receiver" src="https://adha.dev.amelia.com/Amelia/ui/adha/chat?domainCode=adha&sourcePage=home&sourceAction=click" frameborder="0" width="100%" height="100%" allow="geolocation; microphone; camera" class="close">
-        <p>Your browser does not support iframes.</p>
-      </iframe>
+            <iframe id="receiver"
+                src="https://adha.dev.amelia.com/Amelia/ui/adha/chat?domainCode=adha&sourcePage=home&sourceAction=click"
+                frameborder="0" width="100%" height="100%" allow="geolocation; microphone; camera" class="close">
+                <p>Your browser does not support iframes.</p>
+            </iframe>
             <div class="chat-overlay-header">
                 <img class="chat-overlay-header-img close" src="./amelia-close.png" alt="toggle chat overlay" />
                 <img class="chat-overlay-header-img open" src="./amelia-icon.png" alt="toggle chat overlay" />
@@ -163,23 +174,24 @@
 
 
     <script>
-        
-        var timeout;
 
-	function resetTimer() {
-		clearTimeout(timeout);
-		console.log("Clearing timer because of activity");
-		timeout = setTimeout(function () {
-			//alert("Done with 10 Seconds!");
-			//Trigger your popup here
-		document.getElementById('receiver').src = "https://adha.dev.amelia.com/Amelia/ui/adha/chat?domainCode=adha&sourcePage=home&sourceAction=timer";
-		toggleChatOverlayForTimer();
-		}, 5000);
-	}
+        var timeout = setTimeout(function () {
+                document.getElementById('receiver').src = "https://adha.dev.amelia.com/Amelia/ui/adha/chat?domainCode=adha&sourcePage=home&sourceAction=timer";
+                toggleChatOverlayForTimer();
+            }, 5000);
 
-	document.onmousemove = resetTimer;
-	document.onkeypress = resetTimer;
-        
+        function resetTimer() {
+            clearTimeout(timeout);
+            console.log("Clearing timer because of activity");
+            timeout = setTimeout(function () {
+                document.getElementById('receiver').src = "https://adha.dev.amelia.com/Amelia/ui/adha/chat?domainCode=adha&sourcePage=home&sourceAction=timer";
+                toggleChatOverlayForTimer();
+            }, 5000);
+        }
+
+        document.onmousemove = resetTimer;
+        document.onkeypress = resetTimer;
+
         function openChatOverlay(receiverElem, imgElemOpen, imgElemClose) {
             document.getElementById('receiver').classList.add("open");
             document.getElementById('receiver').classList.remove("close");
@@ -212,11 +224,9 @@
             var receiverElem = document.getElementById('receiver');
             if (receiverElem.classList.contains('close')) {
                 openChatOverlay(receiverElem, chatOverlayHeaderImgElemOpen, chatOverlayHeaderImgElemClose);
-            } else {
-                closeChatOverlay(receiverElem, chatOverlayHeaderImgElemOpen, chatOverlayHeaderImgElemClose);
             }
         }
-        
+
         function toggleChatOverlay() {
             /**
              * Toggles opening and closing of the chatOverlay
@@ -239,7 +249,7 @@
         chatOverlayHeaderElemMobile.addEventListener('click', toggleChatOverlay);
 
 
-        if (typeof(Storage) !== "undefined") {
+        /*if (typeof (Storage) !== "undefined") {
             var chatOverlayOpen = localStorage.getItem('chatOverlayOpen');
             var chatOverlayHeaderImgElemOpen = document.getElementsByClassName('chat-overlay-header-img open')[0];
             var chatOverlayHeaderImgElemClose = document.getElementsByClassName('chat-overlay-header-img close')[0];
@@ -253,7 +263,7 @@
         } else {
             // Sorry! No Web Storage support..
             console.log('No localStorage support')
-        }
+        }*/
     </script>
 
 </body>
