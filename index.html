@@ -159,6 +159,23 @@
 
 
     <script>
+        
+        var timeout;
+
+		function resetTimer() {
+			clearTimeout(timeout);
+			console.log("Clearing timer because of activity");
+			timeout = setTimeout(function () {
+				//alert("Done with 10 Seconds!");
+				//Trigger your popup here
+                document.getElementById('receiver').src = "https://adha.dev.amelia.com/Amelia/ui/adha/chat?domainCode=adha&sourcePage=home&sourceAction=timer";
+                toggleChatOverlayForTimer();
+			}, 5000);
+		}
+
+		document.onmousemove = resetTimer;
+		document.onkeypress = resetTimer;
+        
         function openChatOverlay(receiverElem, imgElemOpen, imgElemClose) {
             document.getElementById('receiver').classList.add("open");
             document.getElementById('receiver').classList.remove("close");
@@ -181,6 +198,21 @@
             localStorage.setItem('chatOverlayOpen', false);
         }
 
+        function toggleChatOverlayForTimer() {
+            /**
+             * Toggles opening and closing of the chatOverlay
+             * @returns - no return
+             */
+            var chatOverlayHeaderImgElemOpen = document.getElementsByClassName('chat-overlay-header-img open')[0];
+            var chatOverlayHeaderImgElemClose = document.getElementsByClassName('chat-overlay-header-img close')[0];
+            var receiverElem = document.getElementById('receiver');
+            if (receiverElem.classList.contains('close')) {
+                openChatOverlay(receiverElem, chatOverlayHeaderImgElemOpen, chatOverlayHeaderImgElemClose);
+            } else {
+                closeChatOverlay(receiverElem, chatOverlayHeaderImgElemOpen, chatOverlayHeaderImgElemClose);
+            }
+        }
+        
         function toggleChatOverlay() {
             /**
              * Toggles opening and closing of the chatOverlay
@@ -189,6 +221,7 @@
             var chatOverlayHeaderImgElemOpen = document.getElementsByClassName('chat-overlay-header-img open')[0];
             var chatOverlayHeaderImgElemClose = document.getElementsByClassName('chat-overlay-header-img close')[0];
             var receiverElem = document.getElementById('receiver');
+            receiverElem.src = "https://adha.dev.amelia.com/Amelia/ui/adha/chat?domainCode=adha&sourcePage=home&sourceAction=click";
             if (receiverElem.classList.contains('close')) {
                 openChatOverlay(receiverElem, chatOverlayHeaderImgElemOpen, chatOverlayHeaderImgElemClose);
             } else {
