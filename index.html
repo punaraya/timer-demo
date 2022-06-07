@@ -153,7 +153,7 @@
 <body>
     <div>
         <h1>Example Timer</h1>
-        <p>Please do not move or click your mouse or type a key for 5 seconds to see Amelia popping up</p>
+        <p>Please do not move or click your mouse or type a key for 10 seconds to see Amelia popping up</p>
     </div>
     <div class="chat-overlay-closed chat-overlay">
         <div class="chat-overlay-wrapper">
@@ -178,7 +178,7 @@
         var timeout = setTimeout(function () {
                 document.getElementById('receiver').src = "https://adha.dev.amelia.com/Amelia/ui/adha/chat?domainCode=adha&sourcePage=home&sourceAction=timer";
                 toggleChatOverlayForTimer();
-            }, 5000);
+            }, 10000);
 
         function resetTimer() {
             clearTimeout(timeout);
